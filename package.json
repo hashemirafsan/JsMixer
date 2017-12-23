@@ -2,7 +2,7 @@
   "name": "JsMixer",
   "version": "1.0.0",
   "description": "A Library for Javascript Users",
-  "main": "dist/src/mixed.min.js",
+  "main": "dist/output/mixed.min.js",
   "scripts": {
     "webpack": "webpack"
   },
