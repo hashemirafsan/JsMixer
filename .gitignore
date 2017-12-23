@@ -1,0 +1,8 @@
+.babelrc
+node_modules/
+Test/
+lib/
+src/
+package-lock.json
+webpack.config.js
+npm_version/
