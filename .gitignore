@@ -1,7 +1,7 @@
 node_modules
-Test/
-lib/
-npm_version/
-src/
+Test
+lib
+npm_version
+src
 package-lock.json
 webpack.config.js
