@@ -4,7 +4,7 @@
   "description": "A Library for Javascript Users",
   "main": "dist/output/mixed.min.js",
   "scripts": {
-    "webpack": "webpack",
+    "build": "webpack",
     "start": "webpack-dev-server"
   },
   "author": "Hashemi Rafsan",

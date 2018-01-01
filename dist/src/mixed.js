@@ -57,7 +57,7 @@
 /******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
 /******/
 /******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "";
+/******/ 	__webpack_require__.p = "/dist/src/";
 /******/
 /******/ 	// Load entry module and return exports
 /******/ 	return __webpack_require__(__webpack_require__.s = 0);
@@ -213,6 +213,12 @@ function jsMixer() {
 
 		var computed = Object.keys(obj.computed);
 
+		var watch = Object.keys(obj.watch);
+
+		watch.forEach(function (item) {
+			obj.watch[item].bind(make);
+		});
+
 		var methods = Object.keys(obj.methods);
 
 		computed.forEach(function (item) {
@@ -223,14 +229,68 @@ function jsMixer() {
 			obj.methods[item].bind(make);
 		});
 
+		var startNode = 1;
+
+		var nodes = document.createElement('div');
+
+		nodes.setAttribute('id', 'mixer-' + startNode);
+
+		startNode++;
+
+		nodes.innerHTML = make.template;
+
+		var nodeChild = nodes.children;
+
+		var $scope = {};
+
+		var $model = [];
+
+		var modelName = [];
+
+		for (var i = 0; i < nodeChild.length; i++) {
+
+			var id = 'mixer-' + startNode++;
+
+			nodeChild[i].setAttribute('class', id);
+
+			var nodesChildren = nodeChild[i].attributes;
+
+			var nodesChildrenKeys = Object.values(nodesChildren);
+
+			var getModel = nodesChildrenKeys.map(function (item) {
+				return item.name == 'model';
+			})[0];
+
+			if (getModel) {
+
+				$model.push(id);
+
+				modelName.push(nodesChildren[0].nodeValue);
+
+				nodeChild[i].value = make[nodesChildren[0].nodeValue];
+			}
+		}
+
+		this.__DOM__.appendChild(nodes);
+
+		$model.forEach(function (item) {
+			var elements = document.getElementsByClassName(item);
+
+			for (var i = 0; i < elements.length; i++) {
+				elements[i].onkeyup = function (evt) {
+					for (var i = 0; i < $model.length; i++) {
+						var cpEelements = document.getElementsByClassName($model[i]);
+						make[modelName[i]] = evt.target.value;
+						cpEelements[0].value = make[modelName[i]];
+						console.log(make);
+					}
+				};
+			}
+		});
+
 		var b = obj.mounted.bind(make);
-		//obj.methods.hello();
-		// console.log()
-		Mustache.parse(make.template);
 
 		b();
-
-		this.__DOM__.innerHTML = Mustache.render(make.template, make);
 
 		return this;
 	};
@@ -275,52 +335,6 @@ jsMixer.prototype = {
   * Make Instance
   */
 };window._$ = new jsMixer();
-
-// var a = [1,2,3];
-// var b = [
-// 	{
-// 		id: 1
-// 	},
-// 	{
-// 		id: 3
-// 	}
-// ]
-
-/**
- * Testing
- */
-// _$.selectFirst('div#c').instance({
-// 	template: '<div>{{as}}</div><button id="asa">sub</button>',
-// 	data: function() {
-// 		return {
-// 			as: 'Hi'
-// 		}
-// 	},
-// 	computed: {
-// 		a() {
-// 			return this.as;
-// 		}
-// 	},
-// 	methods: {
-// 		hello(a) {
-// 			this.as = 'Hello';
-// 			console.log(this);
-// 		},
-// 		jan() {
-// 			console.log(this.a())
-// 		}
-// 	},
-// 	mounted() {
-// 		// this.hello('Hello');
-// 		// this.methods.hello('aa')
-// 		var self = this;
-// 		_$.getId('asa').on('click', function() {
-// 			self.hello('a');
-
-// 		})
-// 	}
-// });
-// console.log();
 
 /***/ })
 /******/ ]);

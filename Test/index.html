@@ -7,18 +7,18 @@
 		</div>
 
 		<div class="a">
-			<p className="hello"></p>
+			<button class="s">Submit</button>
 		</div>
 	</body>
 	<script src="./mustache.min.js"></script>
 	<script src="../dist/src/mixed.min.js"></script>
 	<script type="text/javascript">
-		_$.getId('c').instance({
-			template: "<input type='text' class='form-control' id='title' placeholder='Enter title' oninput='updateText('title', event)'>",
+		_$.selectFirst('#c').instance({
+			template: "<input model='name'/> <input model='h'/> <div><h1>Hello</div>",
 			data() {
 				return {
-					name: '',
-					h: ''
+					name: 'ajsansj',
+					h: 'rafsan'
 				}
 			},
 			watch: {
@@ -32,13 +32,14 @@
 			},
 			methods: {
 				fetchData() {
-					this.name = 'rafsan';
 					console.log(this);
 				}
 			},
 			mounted() {
-				const a = ('<div value="name"></div>');
-				console.log(a)
+				var self = this;
+				document.getElementsByClassName('s')[0].addEventListener('click', function() {
+					self.fetchData()
+				})
 			}
 		});
 	</script>
