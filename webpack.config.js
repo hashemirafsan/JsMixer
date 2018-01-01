@@ -8,7 +8,13 @@ module.exports = {
     devtool: 'source-map',
     output: {
         path: __dirname + '/dist/src/',
+        publicPath: '/dist/src/',
         filename: "[name].js"
+    },
+    watchOptions: {
+      aggregateTimeout: 300,
+      poll: 1000,
+      ignored: /node_modules/
     },
     module: {
          loaders: [

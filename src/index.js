@@ -131,6 +131,8 @@ function jsMixer() {
 	 */
 	this.instance = function(obj) {
 
+		console.log(obj.template)
+
 		let make = {
 			...obj.data(),
 			...obj.methods,
@@ -140,10 +142,32 @@ function jsMixer() {
 			}
 		}
 
+		
+
 
 		let computed = Object.keys(obj.computed)
 
+		let watch = Object.keys(obj.watch);
+
+		watch.forEach(function(item) {
+			obj.watch[item].bind(make)
+			// obj.watch[item] = {
+			// 	get: function() {
+
+			// 	},
+			// 	set: function() {
+			// 		obj.watch[item]();
+			// 	}
+			// }
+			console.log(obj.watch[item]())
+		})
+
+		console.log(this.__DOM__);
+
+
 		let methods = Object.keys(obj.methods);
+
+		
 
 
 
@@ -209,51 +233,6 @@ jsMixer.prototype = {
 /**
  * Make Instance
  */
-var _$ = new jsMixer();
+window._$ = new jsMixer();
 
-// var a = [1,2,3];
-// var b = [
-// 	{
-// 		id: 1
-// 	},
-// 	{
-// 		id: 3
-// 	}
-// ]
-
-/**
- * Testing
- */
-// _$.selectFirst('div#c').instance({
-// 	template: '<div>{{as}}</div><button id="asa">sub</button>',
-// 	data: function() {
-// 		return {
-// 			as: 'Hi'
-// 		}
-// 	},
-// 	computed: {
-// 		a() {
-// 			return this.as;
-// 		}
-// 	},
-// 	methods: {
-// 		hello(a) {
-// 			this.as = 'Hello';
-// 			console.log(this);
-// 		},
-// 		jan() {
-// 			console.log(this.a())
-// 		}
-// 	},
-// 	mounted() {
-// 		// this.hello('Hello');
-// 		// this.methods.hello('aa')
-// 		var self = this;
-// 		_$.getId('asa').on('click', function() {
-// 			self.hello('a');
-
-// 		})
-// 	}
-// });
-// console.log();
 

@@ -5,16 +5,26 @@
 	<body>
 		<div id="c">
 		</div>
+
+		<div class="a">
+			<p className="hello"></p>
+		</div>
 	</body>
 	<script src="./mustache.min.js"></script>
-	<script src="./index.js"></script>
+	<script src="../dist/src/mixed.min.js"></script>
 	<script type="text/javascript">
 		_$.getId('c').instance({
-			template: "<div>Hello {{ name }}</div> <div> jani </div>",
+			template: "<input type='text' class='form-control' id='title' placeholder='Enter title' oninput='updateText('title', event)'>",
 			data() {
 				return {
-					name: 'rafsan',
+					name: '',
 					h: ''
+				}
+			},
+			watch: {
+				name() {
+					this.name = 'asas';
+					console.log(this)
 				}
 			},
 			computed: {
@@ -27,7 +37,8 @@
 				}
 			},
 			mounted() {
-				this.fetchData()
+				const a = ('<div value="name"></div>');
+				console.log(a)
 			}
 		});
 	</script>
