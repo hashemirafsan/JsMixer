@@ -3,17 +3,32 @@
 		
 	</head>
 	<body>
-		<div id="haas">
-			id
+		<div id="c">
 		</div>
-		<div class="h">
-			class
-		</div>
-		<div>
-			Tag
-		</div>
-
-		<button>Hello</button>
 	</body>
-	<script src="../src/index.js"></script>
+	<script src="./mustache.min.js"></script>
+	<script src="./index.js"></script>
+	<script type="text/javascript">
+		_$.getId('c').instance({
+			template: "<div>Hello {{ name }}</div> <div> jani </div>",
+			data() {
+				return {
+					name: 'rafsan',
+					h: ''
+				}
+			},
+			computed: {
+
+			},
+			methods: {
+				fetchData() {
+					this.name = 'rafsan';
+					console.log(this);
+				}
+			},
+			mounted() {
+				this.fetchData()
+			}
+		});
+	</script>
 </html>

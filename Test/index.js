@@ -22,7 +22,7 @@ function jsMixer() {
 	}
 
 	this.getClass = function(className) {
-		this.__DOM__ = document.getElementsByClassName(className);
+		this.__DOM__ = document.getElementsByClassName(className)[0];
 		return this;
 	}
 
